@@ -23,3 +23,31 @@ Data is not provided as it is private data from patients and no public dataset w
 
 ## Configuration
 
+## Data
+To use this code, your data has to follow the following BIDS structure (words under bracket are chosen by the user, * for optional files):
+
+```
+|_ data
+    |_ [dataset_name]
+        |_ sub-0
+            |_ ses-1
+                |_ sub-0_ses-1_run-1
+                    |_ sub-0_ses-1_run-1.json
+                    |_ sub-0_ses-1_run-1.PNG
+                    *|_ sub-0_ses-1_run-1.WAV
+        |_ sub-1
+        |_ ...
+        |_ [data].hdf5 (generated from the code)
+        |_ contrastive_file.json (generated from the code)
+```
+
+## Use
+The most important functions are implemented in dedicated scripts in the [Scripts](src/Scripts) folder:
+
+Some folders implements method and also contains a main function that can be called with arguments:
+* [DataManipulation](src/DataManipulation/)
+    * [Contrastive file](src/DataManipulation/contrastive_file.py) to generate or load the contrastive file associated to a dataset, which lists the groups of positives from the dataset
+    * [HDF5 data](src/DataManipulation/hdf5_data.py) to generate or load an HDF5 file describing a dataset
+    * [projection](src/DataManipulation/projection.py) to test projection functions
+    * [representations](src/DataManipulation/reppresentations.py) to test representations functions
+
