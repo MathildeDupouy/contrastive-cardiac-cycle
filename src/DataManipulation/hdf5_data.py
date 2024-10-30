@@ -13,7 +13,7 @@ from pathlib import Path
 import csv
 
 from DataManipulation.explore_dataset import load_info_folder, hms2sec, get_hard_label
-from utils.vocabulary import *
+from Utils.vocabulary import *
 
 def dataset_hdf5_generation(
                         dataset_folder,

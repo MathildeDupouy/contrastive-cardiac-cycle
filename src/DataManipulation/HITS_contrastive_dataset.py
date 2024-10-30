@@ -4,7 +4,7 @@ import numpy as np
 import torch
 
 from DataManipulation.HITS_2D_dataset import HITS_2D_Dataset
-from utils.vocabulary import (
+from Utils.vocabulary import (
     ID,
     HARD_CLASS, HARD_POS,
     POS_PATH, NEG_PATH, PNG_PATH

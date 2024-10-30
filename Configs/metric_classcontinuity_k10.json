@@ -1,0 +1,32 @@
+{
+    "all": {
+        "labels": [
+            "class",
+            "hard pos"
+        ],
+        "metric": [
+            "categorycontinuity_pos_latent",
+            "categorycontinuity_pos_2D",
+            "categorycontinuity_class_latent",
+            "categorycontinuity_class_2D",
+            "categorycontinuity_detailed_latent",
+            "categorycontinuity_detailed_2D"
+        ],
+        "args": [
+            {"k": 10, "aggregation": "total_mean"},
+            {"k": 10, "aggregation": "total_mean"},
+            {"k": 10, "aggregation": "total_mean"},
+            {"k": 10, "aggregation": "total_mean"},
+            {"k": 10, "aggregation": "total_mean"},
+            {"k": 10, "aggregation": "total_mean"}
+        ]
+    },
+    "train": {
+        "labels": [],
+        "metric": []
+    },
+    "test": {
+        "labels": [],
+        "metric": []
+    }
+}

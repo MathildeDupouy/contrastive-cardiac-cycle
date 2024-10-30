@@ -6,7 +6,7 @@ import numpy as np
 from sklearn.manifold import TSNE
 
 from DataManipulation.representations import get_exp_representation
-from utils.vocabulary import (
+from Utils.vocabulary import (
     NAME, ARGS,
     REPRESENTATION,
     PROJECTION

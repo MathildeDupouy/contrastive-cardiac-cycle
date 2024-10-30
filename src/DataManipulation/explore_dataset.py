@@ -10,7 +10,7 @@ import matplotlib.image as mpli
 import json
 import pandas as pd
 
-from utils.vocabulary import *
+from Utils.vocabulary import *
 
 # id-name CSV keys
 CSV_ID = "subjectID"

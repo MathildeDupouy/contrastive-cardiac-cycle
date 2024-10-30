@@ -1,0 +1,115 @@
+{
+    "name": "Exp_contrastive_M1_N1",
+    "description": "Contrastive experiment on a convolutional encoder, dataset 400ms",
+    "device": "cuda",
+    "nb_epochs": 20,
+    "batch size": [
+        16,
+        16
+    ],
+    "model": {
+        "name": "Contrastive",
+        "args": {
+            "model": {
+                "name": "ConvEncoder",
+                "args": {
+                    "input_channels": 3,
+                    "output_channels": 4,
+                    "k_size": 3
+                }
+            }
+        }
+    },
+    "optimizer": {
+        "name": "Adam",
+        "args": {
+            "lr": 0.001,
+            "weight_decay": 1e-05
+        }
+    },
+    "dataset": {
+        "dataset type": "HITS_contrastive",
+        "data path": "****.hdf5",
+        "contrative file path": "****.json",
+        "args": {
+            "duration": 400,
+            "initial_duration": 1000,
+            "multiple": 16,
+            "remove_pos_U": true,
+            "remove_class_U": true,
+            "neg_intrasub": true,
+            "neg_samepos": false,
+            "nb_pos": 1,
+            "nb_neg": 20
+        }
+    },
+    "train labels": {
+        "labels": [
+            "contrastive"
+        ],
+        "loss": [
+            "Contrastive"
+        ],
+        "weight": [
+            1
+        ],
+        "prediction position": [
+            [
+                0,
+                1,
+                2
+            ]
+        ],
+        "args": [
+            {
+                "temperature": 1.0
+            }
+        ]
+    },
+    "test labels": [
+        "contrastive"
+    ],
+    "projection": {
+        "name": "TSNE",
+        "args": {
+            "n_components": 2,
+            "perplexity": 40,
+            "early_exaggeration": 5,
+            "learning_rate": 1000,
+            "max_iter": 3000,
+            "n_jobs": 4
+        }
+    },
+    "evaluation": {
+        "all": {
+            "labels": [
+                "class",
+                "hard pos"
+            ],
+            "metric": [
+                "categorycontinuity_pos_latent",
+                "categorycontinuity_pos_2D",
+                "categorycontinuity_class_latent",
+                "categorycontinuity_class_2D",
+                "categorycontinuity_detailed_latent",
+                "categorycontinuity_detailed_2D"
+            ],
+            "args": [
+                {"k": 10, "aggregation": "total_mean"},
+                {"k": 10, "aggregation": "total_mean"},
+                {"k": 10, "aggregation": "total_mean"},
+                {"k": 10, "aggregation": "total_mean"},
+                {"k": 10, "aggregation": "total_mean"},
+                {"k": 10, "aggregation": "total_mean"}
+            ]
+        },
+        "train": {
+            "labels": [],
+            "metric": []
+        },
+        "test": {
+            "labels": [],
+            "metric": []
+        }
+    }
+}

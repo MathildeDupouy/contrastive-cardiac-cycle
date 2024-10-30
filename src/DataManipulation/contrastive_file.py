@@ -13,7 +13,7 @@ import pandas as pd
 import json
 
 from DataManipulation.hdf5_data import load_from_HDF5
-from utils.vocabulary import (
+from Utils.vocabulary import (
     TRAIN, TEST, DATASET_NAME,
     ID, HARD_POS, PNG_PATH
     )

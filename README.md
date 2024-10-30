@@ -29,25 +29,32 @@ To use this code, your data has to follow the following BIDS structure (words un
 ```
 |_ data
     |_ [dataset_name]
+        |_ [data].hdf5 (generated from the code)
+        |_ contrastive_file.json (generated from the code)
+        |_ participants.csv (subjects metadata)
         |_ sub-0
             |_ ses-1
                 |_ sub-0_ses-1_run-1
-                    |_ sub-0_ses-1_run-1.json
-                    |_ sub-0_ses-1_run-1.PNG
-                    *|_ sub-0_ses-1_run-1.WAV
+                    |_ sub-0_ses-1_run-1.json (vignette metadata)
+                    |_ sub-0_ses-1_run-1.PNG (vignette)
+                    *|_ sub-0_ses-1_run-1.WAV (vignette audio)
         |_ sub-1
         |_ ...
-        |_ [data].hdf5 (generated from the code)
-        |_ contrastive_file.json (generated from the code)
 ```
 
-## Use
+## Executables
 The most important functions are implemented in dedicated scripts in the [Scripts](src/Scripts) folder:
 
-Some folders implements method and also contains a main function that can be called with arguments:
+Some files implement methods and also contain a `main` function that can be called with arguments:
 * [DataManipulation](src/DataManipulation/)
     * [Contrastive file](src/DataManipulation/contrastive_file.py) to generate or load the contrastive file associated to a dataset, which lists the groups of positives from the dataset
     * [HDF5 data](src/DataManipulation/hdf5_data.py) to generate or load an HDF5 file describing a dataset
     * [projection](src/DataManipulation/projection.py) to test projection functions
-    * [representations](src/DataManipulation/reppresentations.py) to test representations functions
+    * [representations](src/DataManipulation/representations.py) to test representations functions
+
+* [Results](src/Results/)
+    * [Plot losses](src/Results/plot_losses.py) to plot the losses of one or many runs, in a detailed way or not.
+
+* [Utils](src/Utils/)
+    * [Projection file](src/Utils/projection_file.py) to format samples 2D projection in a table with metadata (primarily used for a visualization UI).
 

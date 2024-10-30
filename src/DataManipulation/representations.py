@@ -5,7 +5,7 @@ from tqdm import tqdm
 import pickle as pkl
 from DataManipulation.hdf5_data import ID, SAMPLE
 from Experiments.experiments import get_dataloaders
-from utils.vocabulary import (
+from Utils.vocabulary import (
     TRAIN, TEST, LABELS,
     DEVICE, INFO, MODEL,
     ID, SAMPLE,
