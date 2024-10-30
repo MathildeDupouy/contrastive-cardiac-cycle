@@ -22,6 +22,7 @@ The associate code thus provide:
 Data is not provided as it is private data from patients and no public dataset was used.
 
 ## Configuration
+_in progress..._
 
 ## Data
 To use this code, your data has to follow the following BIDS structure (words under bracket are chosen by the user, * for optional files):
@@ -44,6 +45,8 @@ To use this code, your data has to follow the following BIDS structure (words un
 
 ## Executables
 The most important functions are implemented in dedicated scripts in the [Scripts](src/Scripts) folder:
+
+_in progress..._
 
 Some files implement methods and also contain a `main` function that can be called with arguments:
 * [DataManipulation](src/DataManipulation/)
