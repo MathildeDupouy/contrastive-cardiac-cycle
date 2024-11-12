@@ -7,13 +7,16 @@ Arguments:
 
     -o --output_path, str, required
     path to the output folder for predictions
+    
+    -m --model, str, required
+    path ot the model path
 
     -dc --dataset_config, str, optional (default None)
     Path to the JSON file with the configuration from the dataset
     Exemple :
     {
         "dataset type": "HITS_2D",
-        "data path": "/home/dupouy/Documents/stage_emboles/data/data_04_2024_1_5s/embStickers_1.5s_T0_rearranged_posMSec/data.hdf5",
+        "data path": "/path/to/data/dataset_name/data.hdf5",
         "initial_duration": 1500,
         "duration": 400,
         "multiple": 16,
@@ -31,29 +34,37 @@ import json
 import pickle as pkl
 import os
 
+import torch
+
 from Experiments.inference import inference
 from Experiments.experiments import configJSON2obj
 from Utils.vocabulary import (
     DEVICE,
     DATASET,
+    MODEL,
 )
 
 if __name__ == "__main__":
-    # Example : python src/Scripts/infer.py -dc /home/dupouy/Documents/stage_emboles/data/data_04_2024_1_5s/embStickers_1.5s_T0_rearranged_posMSec/dataset_config.json
-    #                                       -p /home/dupouy/Documents/stage_emboles/code/learning_temporal_context/experiments/14-Exp_ConvAE_ClassifPos_a1_b0-01/run-0
-    #                                       -o /home/dupouy/Documents/stage_emboles/code/learning_temporal_context/experiments/inferences/temporal_sub_400ms_a1_b0-01_run-0
+    # Example : python src/Scripts/infer.py -dc /path/to/data/dataset_name/dataset_config.json
+    #                                       -p /path/to/experiments/experiment_name/run-0
+    #                                       -m /path/to/experiments/experiment_name/run-0/last_model.pt
+    #                                       -o /path/to/experiments/inferences/temporal_sub_400ms_a1_b0-01_run-0
     parser = argparse.ArgumentParser(description="Inference script help")
     parser.add_argument("-p",  "--parent_folder", type=str, required=True,
                         help="Path to the experiment folder")
     parser.add_argument("-o",  "--output_path", type=str, required=True,
                         help="Path to the folder where predictions will be stored")
+    parser.add_argument("-m",  "--model", type=str, required=True,
+                        help="Path to the model to infer from")
     parser.add_argument("-dc",  "--dataset_config", type=str, required=False, default=None,
                         help="Path to the JSON file with the configuration from the dataset")
     
 
     args = parser.parse_args()
     exp_folder = Path(args.parent_folder)
+    model_path = Path(args.model)
     assert exp_folder.exists(), f"{exp_folder} does not exist."
+    assert model_path.exists(), f"{model_path} does not exist."
 
     with (exp_folder/'config.json').open("r") as f:
         json_config = json.load(f)
@@ -68,6 +79,11 @@ if __name__ == "__main__":
     # Translating to a configuration dict with instantiated objects
     obj_config = configJSON2obj(json_config)
     print(f"[Experiments] Asking for the device {json_config[DEVICE]}, final device {obj_config[DEVICE]}")
+    
+    ## Replacing model
+    with model_path.open("r") as f:
+        model = torch.load(f)
+    obj_config[MODEL] = model
 
     predictions, representations = inference(obj_config)
 
