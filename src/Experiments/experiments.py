@@ -9,7 +9,6 @@ from torch.utils.data import DataLoader
 from DataManipulation.hdf5_data import load_from_HDF5
 from DataManipulation.HITS_2D_dataset import HITS_2D_Dataset
 from DataManipulation.HITS_contrastive_dataset import HITS_contrastive_Dataset
-from Experiments.experiments_definition import get_experiment_config
 from Models.ClassifConvAE import ClassifConvAE
 from Models.ContrastiveNet import ContrastiveNet, ContrastiveNetAE
 from Models.ConvolutionalAE import (
@@ -251,41 +250,6 @@ def create_run_folder(exp_path, run_name = None):
 
     return output_folder
 
-def init_experiment(exp_id: int):
-    """
-    Creates a config dictionary with instantiated dataloaders, model, losses...
-    Creates a folder for the experiment and store the json_config in it.
-
-    Arguments:
-    ----------
-        exp_id: (int)
-        Experience identifier
-
-    Returns:
-    --------
-        A configuration dict with instantiated objects.
-        The experiment output path.
-    """
-    # Getting the experiment config
-    json_config = get_experiment_config(exp_id)
-    if (f"{exp_id}-" not in json_config[NAME]):
-        json_config[NAME] = f"{exp_id}-{json_config[NAME]}"
-
-    # Find the experiment folder
-    parent_folder = Path.cwd()
-    max_depth = 0
-    while not (parent_folder/"experiments").exists() and max_depth < 10:
-        parent_folder = parent_folder.parent
-        max_depth += 1
-    if max_depth >= 10:
-        raise NotADirectoryError(f"[Experiments] No 'experiments' folder in the parent repertory.")
-    exp_parent_folder = parent_folder/"experiments"
-    exp_path = exp_parent_folder/json_config[NAME]
-    if not exp_path.exists():
-        os.mkdir(exp_path)
-    # output_folder = create_run_folder(exp_path)
-
-    return json_config, exp_path
 
 ###############################################################################
 ###############################################################################

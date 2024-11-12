@@ -157,8 +157,6 @@ def pointcloud_evaluation(metric, exp_path, exp_config, modes_datasets, predicti
         projection_dict = get_exp_projection(exp_path, device=exp_config[DEVICE])
     elif "latent" in metric.lower() and representations is None:
         representations = get_exp_representation(exp_path)
-    else:
-        raise NotImplementedError(f"[evaluate] Metric '{metric}' not implemented (no space specified).")
 
     X_all = []
     labels_all = []

@@ -2,7 +2,7 @@ import torch
 import numpy as np
 from torch.utils.data import Dataset
 
-from utils.tools import get_centered_range, get_closest_multiple
+from Utils.tools import get_centered_range, get_closest_multiple
 from DataManipulation.explore_dataset import get_vignette_array
 from DataManipulation.explore_dataset import HARD_CLASS, HARD_POS, PNG_PATH
 from DataManipulation.hdf5_data import SOFT_A, SOFT_EG, SOFT_ES, ID
